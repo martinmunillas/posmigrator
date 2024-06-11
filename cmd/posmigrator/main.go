@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/martinmunillas/posmigrator/internal/posmigrator"
+	"github.com/martinmunillas/posmigrator"
 	"github.com/spf13/cobra"
 )
 
