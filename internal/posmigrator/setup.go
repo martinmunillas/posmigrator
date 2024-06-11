@@ -31,22 +31,20 @@ func ConnectPostgres(config Config) (*sql.DB, error) {
 }
 
 func ensureMigrationsTable(conn *sql.DB) error {
-	result, err := conn.Query(
+	var exists bool
+	err := conn.QueryRow(
 		`SELECT EXISTS (
 			SELECT 1
 			FROM pg_tables
 			WHERE schemaname = 'public'
 			AND tablename = 'migrations'
-		);
-		`,
-	)
+		);`,
+	).Scan(&exists)
 
 	if err != nil {
 		return fmt.Errorf("error checking migrations table: %w", err)
 	}
 
-	var exists bool
-	result.Scan(&exists)
 	if !exists {
 		fmt.Println("Creating migrations table")
 		_, err := conn.Exec(
