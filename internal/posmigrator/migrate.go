@@ -169,6 +169,9 @@ withNextMigration:
 }
 
 func readViews(config Config) []string {
+	if _, err := os.Stat(config.MigrationsPath + "/views"); os.IsNotExist(err) {
+		return nil
+	}
 	viewDirs, err := os.ReadDir(config.MigrationsPath + "/views")
 	if err != nil {
 		red.Println("Error reading views directory")
