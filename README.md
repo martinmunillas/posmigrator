@@ -58,21 +58,3 @@ To ensure all migrations ran and are valid:
 posmigrator ensure --dbhost localhost --dbport 5432 --dbuser user --dbpassword password --dbname mydb --migrationspath ./migrations
 ```
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Acknowledgements
-
-This tool is built using the following packages:
-
-- Cobra: A library for creating powerful modern CLI applications.
-- posmigrator: The core package that handles database connections and migration logic.
-
----
-
-Feel free to reach out if you have any questions or need further assistance. Happy migrating!
