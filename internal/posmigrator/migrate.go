@@ -20,6 +20,7 @@ func RunMigrations(conn *sql.DB, config Config) error {
 		return fmt.Errorf("error ensuring migrations table: %w", err)
 	}
 	migrations, err := getMigrations(conn)
+	fmt.Println(migrations)
 	if err != nil {
 		return fmt.Errorf("error getting migrations: %w", err)
 	}
@@ -70,8 +71,14 @@ func EnsureAllMigrationsRanAndAreValid(conn *sql.DB, config Config) error {
 func getMigrations(conn *sql.DB) ([]Migration, error) {
 	var migrations []Migration
 	rows, err := conn.Query("SELECT id, description, migrated_at FROM migrations ORDER BY id")
-
-	rows.Scan(&migrations)
+	for rows.Next() {
+		var migration Migration
+		err = rows.Scan(&migration.ID, &migration.Description, &migration.MigratedAt)
+		if err != nil {
+			return nil, err
+		}
+		migrations = append(migrations, migration)
+	}
 	if err != nil {
 		return nil, err
 	}
