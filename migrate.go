@@ -20,7 +20,6 @@ func RunMigrations(conn *sql.DB, config Config) error {
 		return fmt.Errorf("error ensuring migrations table: %w", err)
 	}
 	migrations, err := getMigrations(conn)
-	fmt.Println(migrations)
 	if err != nil {
 		return fmt.Errorf("error getting migrations: %w", err)
 	}
