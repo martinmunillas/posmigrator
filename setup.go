@@ -9,13 +9,16 @@ import (
 
 func ConnectPostgres(config Config) (*sql.DB, error) {
 	connStr := fmt.Sprintf(
-		"user=%s dbname=%s password=%s host=%s port=%s sslmode=disable",
+		"user=%s dbname=%s password=%s host=%s sslmode=disable",
 		config.DbUser,
 		config.DbName,
 		config.DbPassword,
 		config.DbHost,
-		config.DbPort,
 	)
+
+	if config.DbPort != "" {
+		connStr += fmt.Sprintf(" port=%s", config.DbPort)
+	}
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
